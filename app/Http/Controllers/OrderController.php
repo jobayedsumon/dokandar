@@ -15,10 +15,11 @@ use App\OtpConfiguration;
 use App\User;
 use App\BusinessSetting;
 use Auth;
+use Illuminate\Support\Facades\Mail;
 use Session;
 use DB;
 use PDF;
-use Mail;
+
 use App\Mail\InvoiceEmailManager;
 use CoreComponentRepository;
 
@@ -319,25 +320,25 @@ class OrderController extends Controller
 
 
 
-            // //stores the pdf for invoice
-            // $pdf = PDF::setOptions([
-            //                 'isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true,
-            //                 'logOutputFile' => storage_path('logs/log.htm'),
-            //                 'tempDir' => storage_path('logs/')
-            //             ])->loadView('invoices.customer_invoice', compact('order'));
-            // $output = $pdf->output();
+             //stores the pdf for invoice
+             $pdf = PDF::setOptions([
+                             'isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true,
+                             'logOutputFile' => storage_path('logs/log.htm'),
+                             'tempDir' => storage_path('logs/')
+                         ])->loadView('invoices.customer_invoice', compact('order'));
+             $output = $pdf->output();
 
-            // $file = 'invoices'.DIRECTORY_SEPARATOR.'Order#'.$order->code.'.pdf';
+             $file = 'invoices'.DIRECTORY_SEPARATOR.'Order#'.$order->code.'.pdf';
 
 
-            // file_put_contents(public_path($file), $output);
+             file_put_contents(public_path($file), $output);
 
 
             $array['view'] = 'emails.invoice';
             $array['subject'] = 'Order Placed - '.$order->code;
             $array['from'] = env('MAIL_USERNAME');
             $array['content'] = 'Hi. A new order has been placed. Please check the attached invoice.';
-            // $array['file'] = $file;
+             $array['file'] = $file;
             $array['file_name'] = 'Order#'.$order->code.'.pdf';
 
             foreach($seller_products as $key => $seller_product){
@@ -363,10 +364,10 @@ class OrderController extends Controller
                     Mail::to($request->session()->get('shipping_info')['email'])->queue(new InvoiceEmailManager($array));
                     Mail::to(User::where('user_type', 'admin')->first()->email)->queue(new InvoiceEmailManager($array));
                 } catch (\Exception $e) {
-
+                    dd($e->getMessage());
                 }
             }
-            // unlink(public_path($array['file']));
+             unlink(public_path($array['file']));
 
             $request->session()->put('order_id', $order->id);
         }

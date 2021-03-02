@@ -5,17 +5,17 @@
     <meta http-equiv="Content-Type" content="text/html;"/>
     <meta charset="UTF-8">
 	<style media="all">
-		@font-face {
-            font-family: 'Roboto';
-            src: url("{{ asset('fonts/Roboto-Regular.ttf') }}") format("truetype");
-            font-weight: normal;
-            font-style: normal;
-        }
+		{{--@font-face {--}}
+        {{--    font-family: 'Roboto';--}}
+        {{--    src: url("{{ asset('fonts/Roboto-Regular.ttf') }}") format("truetype");--}}
+        {{--    font-weight: normal;--}}
+        {{--    font-style: normal;--}}
+        {{--}--}}
         *{
             margin: 0;
             padding: 0;
             line-height: 1.3;
-            font-family: 'Roboto';
+            font-family: 'Dejavu Sans', serif;
             color: #333542;
         }
 		body{
@@ -68,13 +68,13 @@
 		<div style="background: #eceff4;padding: 1.5rem;">
 			<table>
 				<tr>
-					<td>
-						@if($generalsetting->logo != null)
-							<img loading="lazy"  src="{{ asset($generalsetting->logo) }}" height="40" style="display:inline-block;">
-						@else
-							<img loading="lazy"  src="{{ asset('frontend/images/logo/logo.png') }}" height="40" style="display:inline-block;">
-						@endif
-					</td>
+{{--					<td>--}}
+{{--						@if($generalsetting->logo != null)--}}
+{{--							<img loading="lazy"  src="{{ asset($generalsetting->logo) }}" height="40" style="display:inline-block;">--}}
+{{--						@else--}}
+{{--							<img loading="lazy"  src="{{ asset('frontend/images/logo/logo.png') }}" height="40" style="display:inline-block;">--}}
+{{--						@endif--}}
+{{--					</td>--}}
 					<td style="font-size: 2.5rem;" class="text-right strong">INVOICE</td>
 				</tr>
 			</table>
