@@ -457,7 +457,7 @@
                                 </li>
                                 <li>
                                     <li class="{{ areActiveRoutes(['countries.index','countries.edit','countries.update'])}}">
-                                        <a class="nav-link" href="{{route('countries.index')}}">{{__('Shipping Countries')}}</a>
+                                        <a class="nav-link" href="{{route('countries.index')}}">{{__('Shipping Regions')}}</a>
                                     </li>
                                 </li>
                             </ul>
@@ -613,7 +613,7 @@
                             </ul>
                         </li>
                         @endif
-					<!-----	
+					<!-----
                         @if(Auth::user()->user_type == 'admin' || in_array('15', json_decode(Auth::user()->staff->role->permissions)))
                             <li class="{{ areActiveRoutes(['addons.index', 'addons.create'])}}">
                                 <a class="nav-link" href="{{ route('addons.index') }}">

@@ -138,7 +138,7 @@
                                     <td>{{ $key+1 }}</td>
                                     <td>
                                         @if ($orderDetail->product != null)
-                    						<a href="{{ route('product', $orderDetail->product->slug) }}" target="_blank"><img height="50" src={{ asset($orderDetail->product->thumbnail_img) }}/></a>
+                    						<a href="{{ route('product', $orderDetail->product->slug) }}" target="_blank"><img height="50" src="{{ asset($orderDetail->product->thumbnail_img) }}" /></a>
                                         @else
                                             <strong>{{ __('N/A') }}</strong>
                                         @endif

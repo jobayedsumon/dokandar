@@ -11,13 +11,15 @@
 |
 */
 
-Route::get('/demo', function () {
-   dd(asset(''));
-});
+ini_set('max_execution_time', 300); // 5 minutes
 
 //demo
 Route::get('/demo/cron_1', 'DemoController@cron_1');
 Route::get('/demo/cron_2', 'DemoController@cron_2');
+
+Route::get('demo', function () {
+
+});
 
 
 

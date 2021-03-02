@@ -10,49 +10,49 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-7 col">
-                    <ul class="inline-links d-lg-inline-block d-flex justify-content-between">
-                        <li class="dropdown" id="lang-change">
-                            @php
-                                if(Session::has('locale')){
-                                    $locale = Session::get('locale', Config::get('app.locale'));
-                                }
-                                else{
-                                    $locale = 'en';
-                                }
-                            @endphp
-                            <a href="" class="dropdown-toggle top-bar-item" data-toggle="dropdown">
-                                <img src="{{ asset('frontend/images/placeholder.jpg') }}" height="11" data-src="{{ asset('frontend/images/icons/flags/'.$locale.'.png') }}" class="flag lazyload" alt="{{ \App\Language::where('code', $locale)->first()->name }}" height="11"><span class="language">{{ \App\Language::where('code', $locale)->first()->name }}</span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                @foreach (\App\Language::all() as $key => $language)
-                                    <li class="dropdown-item @if($locale == $language) active @endif">
-                                        <a href="#" data-flag="{{ $language->code }}"><img src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset('frontend/images/icons/flags/'.$language->code.'.png') }}" class="flag lazyload" alt="{{ $language->name }}" height="11"><span class="language">{{ $language->name }}</span></a>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </li>
+{{--                    <ul class="inline-links d-lg-inline-block d-flex justify-content-between">--}}
+{{--                        <li class="dropdown" id="lang-change">--}}
+{{--                            @php--}}
+{{--                                if(Session::has('locale')){--}}
+{{--                                    $locale = Session::get('locale', Config::get('app.locale'));--}}
+{{--                                }--}}
+{{--                                else{--}}
+{{--                                    $locale = 'en';--}}
+{{--                                }--}}
+{{--                            @endphp--}}
+{{--                            <a href="" class="dropdown-toggle top-bar-item" data-toggle="dropdown">--}}
+{{--                                <img src="{{ asset('frontend/images/placeholder.jpg') }}" height="11" data-src="{{ asset('frontend/images/icons/flags/'.$locale.'.png') }}" class="flag lazyload" alt="{{ \App\Language::where('code', $locale)->first()->name }}" height="11"><span class="language">{{ \App\Language::where('code', $locale)->first()->name }}</span>--}}
+{{--                            </a>--}}
+{{--                            <ul class="dropdown-menu">--}}
+{{--                                @foreach (\App\Language::all() as $key => $language)--}}
+{{--                                    <li class="dropdown-item @if($locale == $language) active @endif">--}}
+{{--                                        <a href="#" data-flag="{{ $language->code }}"><img src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset('frontend/images/icons/flags/'.$language->code.'.png') }}" class="flag lazyload" alt="{{ $language->name }}" height="11"><span class="language">{{ $language->name }}</span></a>--}}
+{{--                                    </li>--}}
+{{--                                @endforeach--}}
+{{--                            </ul>--}}
+{{--                        </li>--}}
 
-                        <li class="dropdown" id="currency-change">
-                            @php
-                                if(Session::has('currency_code')){
-                                    $currency_code = Session::get('currency_code');
-                                }
-                                else{
-                                    $currency_code = \App\Currency::findOrFail(\App\BusinessSetting::where('type', 'system_default_currency')->first()->value)->code;
-                                }
-                            @endphp
-                            <a href="" class="dropdown-toggle top-bar-item" data-toggle="dropdown">
-                                {{ \App\Currency::where('code', $currency_code)->first()->name }} {{ (\App\Currency::where('code', $currency_code)->first()->symbol) }}
-                            </a>
-                            <ul class="dropdown-menu">
-                                @foreach (\App\Currency::where('status', 1)->get() as $key => $currency)
-                                    <li class="dropdown-item @if($currency_code == $currency->code) active @endif">
-                                        <a href="" data-currency="{{ $currency->code }}">{{ $currency->name }} ({{ $currency->symbol }})</a>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </li>
-                    </ul>
+{{--                        <li class="dropdown" id="currency-change">--}}
+{{--                            @php--}}
+{{--                                if(Session::has('currency_code')){--}}
+{{--                                    $currency_code = Session::get('currency_code');--}}
+{{--                                }--}}
+{{--                                else{--}}
+{{--                                    $currency_code = \App\Currency::findOrFail(\App\BusinessSetting::where('type', 'system_default_currency')->first()->value)->code;--}}
+{{--                                }--}}
+{{--                            @endphp--}}
+{{--                            <a href="" class="dropdown-toggle top-bar-item" data-toggle="dropdown">--}}
+{{--                                {{ \App\Currency::where('code', $currency_code)->first()->name }} {{ (\App\Currency::where('code', $currency_code)->first()->symbol) }}--}}
+{{--                            </a>--}}
+{{--                            <ul class="dropdown-menu">--}}
+{{--                                @foreach (\App\Currency::where('status', 1)->get() as $key => $currency)--}}
+{{--                                    <li class="dropdown-item @if($currency_code == $currency->code) active @endif">--}}
+{{--                                        <a href="" data-currency="{{ $currency->code }}">{{ $currency->name }} ({{ $currency->symbol }})</a>--}}
+{{--                                    </li>--}}
+{{--                                @endforeach--}}
+{{--                            </ul>--}}
+{{--                        </li>--}}
+{{--                    </ul>--}}
                 </div>
 
                 <div class="col-5 text-right d-none d-lg-block">
@@ -135,7 +135,7 @@
                                 <span>{{__('Dashboard')}}</span>
                             </a>
                         </li>
-                        
+
                         <li>
                             <a href="{{ route('purchase_history.index') }}">
                                 <i class="la la-file-text"></i>
@@ -237,7 +237,7 @@
                             </li>
                             @endauth
                         @endif
-                        
+
                         @if ($club_point_addon != null && $club_point_addon->activated == 1)
                             <li>
                                 <a href="{{ route('earnng_point_for_user') }}" class="{{ areActiveRoutesHome(['earnng_point_for_user'])}}">
@@ -437,7 +437,7 @@
                                 @endif
                             </a>
 
-                            
+
                         </div>
                     </div>
                     <div class="col-lg-9 col-4 position-static">
@@ -649,5 +649,5 @@
             </div>
         </div>
     </div>
-    <!-- Navbar --> 
+    <!-- Navbar -->
 </div>

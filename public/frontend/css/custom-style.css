@@ -32,7 +32,7 @@
     background: #fc5d00;
     padding: 3px 11px 7px 11px;
     color: aliceblue;
-    
+
 }
 .inline-links.float-lg-right.section-title-ul.nav.mt-3.mb-2.m-lg-0{
     padding-top: 10px;
@@ -66,6 +66,14 @@ span.cat_main {
     padding-left: 12px;
 }
 
+#underMainCategory {
+    display: none;
+}
+
+#mainCategoryNav:hover #underMainCategory {
+    display: block;
+}
+
 
 .fasl_deal {
     background-color: #E54F47;
@@ -96,7 +104,7 @@ h3.text-center.trending-category-title {
 }
 .products {
     padding-top: 30px;
-    
+
 }
 
 .flash-deal-box.float-left {

@@ -85,16 +85,9 @@
                                                                 <span class="alpha-6">Address:</span>
                                                                 <span class="strong-600 ml-2">{{ $address->address }}</span>
                                                             </div>
+
                                                             <div>
-                                                                <span class="alpha-6">Postal Code:</span>
-                                                                <span class="strong-600 ml-2">{{ $address->postal_code }}</span>
-                                                            </div>
-                                                            <div>
-                                                                <span class="alpha-6">City:</span>
-                                                                <span class="strong-600 ml-2">{{ $address->city }}</span>
-                                                            </div>
-                                                            <div>
-                                                                <span class="alpha-6">Country:</span>
+                                                                <span class="alpha-6">Region:</span>
                                                                 <span class="strong-600 ml-2">{{ $address->country }}</span>
                                                             </div>
                                                             <div>
@@ -130,7 +123,7 @@
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="control-label">{{__('Email')}}</label>
-                                                    <input type="text" class="form-control" name="email" placeholder="{{__('Email')}}" required>
+                                                    <input type="text" class="form-control" name="email" placeholder="{{__('Email')}}">
                                                 </div>
                                             </div>
                                         </div>
@@ -147,7 +140,7 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label class="control-label">{{__('Select your country')}}</label>
+                                                    <label class="control-label">{{__('Select your region')}}</label>
                                                     <select class="form-control custome-control" data-live-search="true" name="country">
                                                         @foreach (\App\Country::where('status', 1)->get() as $key => $country)
                                                             <option value="{{ $country->name }}">{{ $country->name }}</option>
@@ -155,28 +148,16 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group has-feedback">
-                                                    <label class="control-label">{{__('City')}}</label>
-                                                    <input type="text" class="form-control" placeholder="{{__('City')}}" name="city" required>
-                                                </div>
-                                            </div>
-                                        </div>
 
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group has-feedback">
-                                                    <label class="control-label">{{__('Postal code')}}</label>
-                                                    <input type="number" min="0" class="form-control" placeholder="{{__('Postal code')}}" name="postal_code" required>
-                                                </div>
-                                            </div>
                                             <div class="col-md-6">
                                                 <div class="form-group has-feedback">
                                                     <label class="control-label">{{__('Phone')}}</label>
                                                     <input type="number" min="0" class="form-control" placeholder="{{__('Phone')}}" name="phone" required>
                                                 </div>
                                             </div>
+
                                         </div>
+
                                         <input type="hidden" name="checkout_type" value="guest">
                                     </div>
                                     </div>
@@ -226,11 +207,11 @@
                         </div>
                         <div class="row">
                             <div class="col-md-2">
-                                <label>{{__('Country')}}</label>
+                                <label>{{__('Region')}}</label>
                             </div>
                             <div class="col-md-10">
                                 <div class="mb-3">
-                                    <select class="form-control mb-3 selectpicker" data-placeholder="{{__('Select your country')}}" name="country" required>
+                                    <select class="form-control mb-3 selectpicker" data-placeholder="{{__('Select your region')}}" name="country" required>
                                         @foreach (\App\Country::where('status', 1)->get() as $key => $country)
                                             <option value="{{ $country->name }}">{{ $country->name }}</option>
                                         @endforeach
@@ -238,22 +219,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-2">
-                                <label>{{__('City')}}</label>
-                            </div>
-                            <div class="col-md-10">
-                                <input type="text" class="form-control mb-3" placeholder="{{__('Your City')}}" name="city" value="" required>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-2">
-                                <label>{{__('Postal code')}}</label>
-                            </div>
-                            <div class="col-md-10">
-                                <input type="text" class="form-control mb-3" placeholder="{{__('Your Postal Code')}}" name="postal_code" value="" required>
-                            </div>
-                        </div>
+
                         <div class="row">
                             <div class="col-md-2">
                                 <label>{{__('Phone')}}</label>

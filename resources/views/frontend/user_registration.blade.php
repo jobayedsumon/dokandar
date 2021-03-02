@@ -169,7 +169,8 @@
         var input = document.querySelector("#phone-code");
         var iti = intlTelInput(input, {
             separateDialCode: true,
-            preferredCountries: []
+            preferredCountries: [],
+            initialCountry: 'bd'
         });
 
         var countryCode = iti.getSelectedCountryData();

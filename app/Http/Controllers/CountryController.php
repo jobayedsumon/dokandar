@@ -37,6 +37,16 @@ class CountryController extends Controller
     public function store(Request $request)
     {
         //
+        $country = new Country;
+        $country->name = $request->name;
+        $country->code = $request->code;
+        if($country->save()){
+            return redirect()->route('countries.index');
+        }
+        else{
+            flash(__('Something went wrong'))->error();
+            return back();
+        }
     }
 
     /**
@@ -82,6 +92,14 @@ class CountryController extends Controller
     public function destroy($id)
     {
         //
+        if(Country::destroy($id)){
+            flash(__('Region has been deleted successfully'))->success();
+            return redirect()->route('countries.index');
+        }
+        else{
+            flash(__('Something went wrong'))->error();
+            return back();
+        }
     }
 
     public function updateStatus(Request $request){

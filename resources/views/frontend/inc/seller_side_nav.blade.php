@@ -115,6 +115,9 @@
                     <a href="{{ route('orders.index') }}" class="{{ areActiveRoutesHome(['orders.index'])}}">
                         <i class="la la-file-text"></i>
                         <span class="category-name">
+                            @if($orders > 0)
+                            <span class="badge badge-header badge-danger"></span>
+                            @endif
                             {{__('Orders')}} @if($orders > 0)<span class="ml-2" style="color:green"><strong>({{ $orders }} {{ __('New') }})</strong></span></span>@endif
                         </span>
                     </a>

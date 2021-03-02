@@ -29,6 +29,7 @@
                 </tr>
             </thead>
             <tbody>
+                @if($staffs)
                 @foreach($staffs as $key => $staff)
                     @if($staff->user != null)
                         <tr>
@@ -51,6 +52,7 @@
                         </tr>
                     @endif
                 @endforeach
+                @endif
             </tbody>
         </table>
 

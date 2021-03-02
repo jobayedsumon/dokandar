@@ -2,10 +2,54 @@
 
 @section('content')
 
+    <div class="row">
+        <div class="col-lg-6 col-lg-offset-3">
+            <div class="panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title text-center">{{ __('Region Info') }}</h3>
+                </div>
+                <div class="panel-body">
+                    <form class="form-horizontal" action="{{ route('countries.store') }}" method="POST">
+                        @csrf
+                        <div class="form-group">
+                            <div class="col-lg-3">
+                                <label class="control-label">{{ __('Name') }}</label>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" class="form-control" name="name" placeholder="{{ __('Name') }}" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-lg-3">
+                                <label class="control-label">{{ __('Code') }}</label>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" class="form-control" name="code" placeholder="{{ __('Code') }}" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-lg-12 text-right">
+                                <button class="btn btn-purple" type="submit">{{__('Save')}}</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
     <div class="panel">
         <div class="panel-heading">
-            <h3 class="panel-title">{{__('Countries')}}</h3>
+            <h3 class="panel-title">{{__('Regions')}}</h3>
         </div>
+
         <div class="panel-body">
             <table class="table table-striped table-bordered" cellspacing="0" width="100%">
                 <thead>
@@ -14,6 +58,7 @@
                         <th>{{__('Name')}}</th>
                         <th>{{__('Code')}}</th>
                         <th>{{__('Show/Hide')}}</th>
+                        <th>{{__('Delete')}}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -25,6 +70,9 @@
                             <td><label class="switch">
                                     <input onchange="update_status(this)" value="{{ $country->id }}" type="checkbox" <?php if($country->status == 1) echo "checked";?> >
                                     <span class="slider round"></span></label></td>
+                            <td>
+                                <a href="{{ route('countries.destroy', $country->id) }}"><i class="fa fa-trash-o"></i></a>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>

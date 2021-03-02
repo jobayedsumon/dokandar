@@ -207,5 +207,6 @@ Route::group(['prefix' =>'admin', 'middleware' => ['auth', 'admin']], function()
 	Route::get('/pages/destroy/{id}', 'PageController@destroy')->name('pages.destroy');
 
 	Route::resource('countries','CountryController');
+	Route::get('countries/destroy/{id}','CountryController@destroy')->name('countries.destroy');
 	Route::post('/countries/status', 'CountryController@updateStatus')->name('countries.status');
 });

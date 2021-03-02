@@ -317,20 +317,27 @@ class OrderController extends Controller
 
             $order->save();
 
-            //stores the pdf for invoice
-            $pdf = PDF::setOptions([
-                            'isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true,
-                            'logOutputFile' => storage_path('logs/log.htm'),
-                            'tempDir' => storage_path('logs/')
-                        ])->loadView('invoices.customer_invoice', compact('order'));
-            $output = $pdf->output();
-    		file_put_contents('public/invoices/'.'Order#'.$order->code.'.pdf', $output);
+
+
+            // //stores the pdf for invoice
+            // $pdf = PDF::setOptions([
+            //                 'isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true,
+            //                 'logOutputFile' => storage_path('logs/log.htm'),
+            //                 'tempDir' => storage_path('logs/')
+            //             ])->loadView('invoices.customer_invoice', compact('order'));
+            // $output = $pdf->output();
+
+            // $file = 'invoices'.DIRECTORY_SEPARATOR.'Order#'.$order->code.'.pdf';
+
+
+            // file_put_contents(public_path($file), $output);
+
 
             $array['view'] = 'emails.invoice';
             $array['subject'] = 'Order Placed - '.$order->code;
             $array['from'] = env('MAIL_USERNAME');
             $array['content'] = 'Hi. A new order has been placed. Please check the attached invoice.';
-            $array['file'] = 'public/invoices/Order#'.$order->code.'.pdf';
+            // $array['file'] = $file;
             $array['file_name'] = 'Order#'.$order->code.'.pdf';
 
             foreach($seller_products as $key => $seller_product){
@@ -359,7 +366,7 @@ class OrderController extends Controller
 
                 }
             }
-            unlink($array['file']);
+            // unlink(public_path($array['file']));
 
             $request->session()->put('order_id', $order->id);
         }
@@ -500,7 +507,7 @@ class OrderController extends Controller
                             $orderDetail->save();
                             if($orderDetail->product->user->user_type == 'seller'){
                                 $seller = $orderDetail->product->user->seller;
-                                $seller->admin_to_pay = $seller->admin_to_pay - ($orderDetail->price*$commission_percentage)/100;
+                                $seller->admin_to_pay = $seller->admin_to_pay + ($orderDetail->price*$commission_percentage)/100;
                                 $seller->save();
                             }
                         }
@@ -512,7 +519,7 @@ class OrderController extends Controller
                             if($orderDetail->product->user->user_type == 'seller'){
                                 $commission_percentage = $orderDetail->product->category->commision_rate;
                                 $seller = $orderDetail->product->user->seller;
-                                $seller->admin_to_pay = $seller->admin_to_pay - ($orderDetail->price*$commission_percentage)/100;
+                                $seller->admin_to_pay = $seller->admin_to_pay + ($orderDetail->price*$commission_percentage)/100;
                                 $seller->save();
                             }
                         }

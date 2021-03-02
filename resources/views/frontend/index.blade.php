@@ -5,48 +5,15 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-3">
-                <div class="all-category ">
-                <i class="bi bi-justify"></i>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-justify" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M2 12.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
-                    </svg>
+                <div class="all-category " id="mainCategoryNav">
+                    <i class="fa fa-list"></i>
                     <span class="cat_main" >{{__('Categories')}}</span>
-                    <i class="bi bi-chevron-down"></i>
-                    
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-down cat-down" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
-                        <path fill-rule="evenodd" d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
-                    </svg> 
-                        
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="all-category ">
-                    <span class="cat_main" ><a href="{{route('sellers_show')}}" class="text-white">{{__('All Shop')}}</a></span>  
-                </div>
-            </div> 
-            <div class="col-lg-3">
-                <div class="all-category ">
-                    <span class="cat_main" ><a href="#" class="text-white" >{{__('Gift Card')}}</a></span>  
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="all-category ">
-                    <span class="cat_main" ><a href="" class="text-white">{{__('Campaigns')}}</a></span>
-                </div>  
-            </div>
-        </div> 
-    </div>
+                    <i class="fa fa-caret-down"></i>
 
-    </section>
-    <section class="home-banner-area ">
-        <div class="container">
-            <div class="row no-gutters position-relative">
-                <div class="col-lg-12 position-static order-2 order-lg-0">
-                    <div class="category-sidebar">
-                        
+                    <div class="category-sidebar" id="underMainCategory">
+
                         <ul class="categories no-scrollbar d-none d-lg-block">
-                            
+
                             @foreach (\App\Category::all()->take(11) as $key => $category)
                                 @php
                                     $brands = array();
@@ -67,11 +34,31 @@
                             @endforeach
                         </ul>
                     </div>
+
+
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="all-category ">
+                    <span class="cat_main" ><a href="{{route('sellers_show')}}" class="text-white">{{__('All Shop')}}</a></span>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="all-category ">
+                    <span class="cat_main" ><a href="#" class="text-white" >{{__('Gift Card')}}</a></span>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="all-category">
+                    <span class="cat_main" ><a href="" class="text-white">{{__('Campaigns')}}</a></span>
                 </div>
             </div>
         </div>
+    </div>
+
     </section>
-    <section>
+
+    <section class="mb-4">
                 <div class="home-slide">
                     <div class="home-slide">
                         <div class="slick-carousel" data-slick-arrows="true" data-slick-dots="true" data-slick-autoplay="true">
@@ -137,7 +124,7 @@
                         @endif
                     @endforeach
                 </div>
-                    <div class="show-more text-center mt-2 pb-3">
+                    <div class="show-more text-center mt-5 pb-3">
                         <a href="{{ route('flash-deal-details', $flash_deal->slug) }}" class="bg-green pl-4 pr-4 pt-2 pb-2">Show More >></a>
                     </div>
                 </div>
@@ -162,7 +149,7 @@
         </div>
     </div>
     ----->
-    
+
     <section class="selling_area">
         <div class="container">
             <div class="row">
@@ -171,7 +158,7 @@
                         <h3 class="heading-5 strong-700 mb-0 float-lg-left">
                             <span class="mr-4">Top Brand Products</span>
                         </h3>
-                        
+
                     </div>
                     <div class="row arrow-round gutters-5">
                         @foreach (filter_products(\App\Product::where('published', 1)->where('topbrand', '1'))->limit(8)->get() as $key => $product)
@@ -180,15 +167,15 @@
                                     <div class="position-relative overflow-hidden">
                                         <a href="{{ route('product', $product->slug) }}" class="d-block product-image h-100 text-center">
                                             <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($product->thumbnail_img) }}" alt="{{ __($product->name) }}">
-                                        </a>      
+                                        </a>
                                     </div>
                                     <div class="p-md-3 p-2">
                                         <h2 class="product-title p-0">
                                             <a href="{{ route('product', $product->slug) }}" class=" text-center text-truncate">{{ __($product->name) }}</a>
                                         </h2>
-                                        <div class="price-box d-flex justify-content-center">     
+                                        <div class="price-box d-flex justify-content-center">
                                             <span class="product-price strong-600">{{ home_discounted_base_price($product->id) }}</span>
-                                        </div>     
+                                        </div>
                                         <div class="pt-1 d-flex justify-content-center">
                                             <button class=" add-btn "  onclick="showAddToCartModal({{ $product->id }})">
                                                 <span class="text-white "> Add To Cart</span>
@@ -197,7 +184,7 @@
                                     </div>
                                 </div>
                             </diV>
-                        @endforeach 
+                        @endforeach
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -205,7 +192,7 @@
                         <h3 class="heading-5 strong-700 mb-0 float-lg-left">
                             <span class="mr-4">Weekly Best Selling Products</span>
                         </h3>
-                        
+
                     </div>
                     <div class="row arrow-round gutters-5">
                         @foreach (filter_products(\App\Product::where('published', 1)->where('weeklysell', '1'))->limit(8)->get() as $key => $product)
@@ -214,15 +201,15 @@
                                     <div class="position-relative overflow-hidden">
                                         <a href="{{ route('product', $product->slug) }}" class="d-block product-image h-100 text-center">
                                             <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($product->thumbnail_img) }}" alt="{{ __($product->name) }}">
-                                        </a>      
+                                        </a>
                                     </div>
                                     <div class="p-md-3 p-2">
                                         <h2 class="product-title p-0">
                                             <a href="{{ route('product', $product->slug) }}" class=" text-center text-truncate">{{ __($product->name) }}</a>
                                         </h2>
-                                        <div class="price-box d-flex justify-content-center">     
+                                        <div class="price-box d-flex justify-content-center">
                                             <span class="product-price strong-600">{{ home_discounted_base_price($product->id) }}</span>
-                                        </div>     
+                                        </div>
                                         <div class="pt-1 d-flex justify-content-center">
                                             <button class=" add-btn "  onclick="showAddToCartModal({{ $product->id }})">
                                                 <span class="text-white "> Add To Cart</span>
@@ -231,7 +218,7 @@
                                     </div>
                                 </div>
                             </diV>
-                        @endforeach 
+                        @endforeach
                     </div>
                 </div>
             </div>
