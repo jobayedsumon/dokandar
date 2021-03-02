@@ -5,17 +5,17 @@
     <meta http-equiv="Content-Type" content="text/html;"/>
     <meta charset="UTF-8">
 	<style media="all">
-		@font-face {
-            font-family: 'Roboto';
-            src: url("{{ asset('fonts/Roboto-Regular.ttf') }}") format("truetype");
-            font-weight: normal;
-            font-style: normal;
-        }
+		{{--@font-face {--}}
+        {{--    font-family: 'Roboto';--}}
+        {{--    src: url("{{ asset('fonts/Roboto-Regular.ttf') }}") format("truetype");--}}
+        {{--    font-weight: normal;--}}
+        {{--    font-style: normal;--}}
+        {{--}--}}
         *{
             margin: 0;
             padding: 0;
             line-height: 1.3;
-            font-family: 'Roboto';
+            font-family: 'SiyamRupali', serif;
             color: #333542;
         }
 		body{
@@ -54,9 +54,10 @@
 			font-size: .85rem;
 		}
 		.currency{
-
+            font-family: 'SiyamRupali', serif;
 		}
 	</style>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 </head>
 <body>
 	<div style="margin-left:auto;margin-right:auto;">
@@ -66,26 +67,26 @@
 		@endphp
 
 		<div style="background: #eceff4;padding: 1.5rem;">
-			<table>
-				<tr>
-					<td>
-						@if (Auth::user()->user_type == 'seller')
-							@if(Auth::user()->shop->logo != null)
-								<img loading="lazy"  src="{{ asset(Auth::user()->shop->logo) }}" height="40" style="display:inline-block;">
-							@else
-								<img loading="lazy"  src="{{ asset('frontend/images/logo/logo.png') }}" height="40" style="display:inline-block;">
-							@endif
-						@else
-							@if($generalsetting->logo != null)
-								<img loading="lazy"  src="{{ asset($generalsetting->logo) }}" height="40" style="display:inline-block;">
-							@else
-								<img loading="lazy"  src="{{ asset('frontend/images/logo/logo.png') }}" height="40" style="display:inline-block;">
-							@endif
-						@endif
-					</td>
-					<td style="font-size: 2.5rem;" class="text-right strong">INVOICE</td>
-				</tr>
-			</table>
+{{--			<table>--}}
+{{--				<tr>--}}
+{{--					<td>--}}
+{{--						@if (Auth::user()->user_type == 'seller')--}}
+{{--							@if(Auth::user()->shop->logo != null)--}}
+{{--								<img loading="lazy"  src="{{ asset(Auth::user()->shop->logo) }}" height="40" style="display:inline-block;">--}}
+{{--							@else--}}
+{{--								<img loading="lazy"  src="{{ asset('frontend/images/logo/logo.png') }}" height="40" style="display:inline-block;">--}}
+{{--							@endif--}}
+{{--						@else--}}
+{{--							@if($generalsetting->logo != null)--}}
+{{--								<img loading="lazy"  src="{{ asset($generalsetting->logo) }}" height="40" style="display:inline-block;">--}}
+{{--							@else--}}
+{{--								<img loading="lazy"  src="{{ asset('frontend/images/logo/logo.png') }}" height="40" style="display:inline-block;">--}}
+{{--							@endif--}}
+{{--						@endif--}}
+{{--					</td>--}}
+{{--					<td style="font-size: 2.5rem;" class="text-right strong">INVOICE</td>--}}
+{{--				</tr>--}}
+{{--			</table>--}}
 			<table>
 				@if (Auth::user()->user_type == 'seller')
 					<tr>
@@ -110,7 +111,7 @@
 						<td class="text-right"></td>
 					</tr>
 					<tr>
-						<td class="gry-color small">{{ $generalsetting->address }}</td>
+						<td class="gry-color small" style="font-family: 'SiyamRupali', serif">{{ $generalsetting->address }}</td>
 						<td class="text-right"></td>
 					</tr>
 					<tr>
@@ -140,7 +141,7 @@
 		</div>
 
 	    <div style="padding: 1.5rem;">
-			<table class="padding text-left small border-bottom">
+			<table class="padding text-left small border-bottom" style="font-family: 'SiyamRupali', serif">
 				<thead>
 	                <tr class="gry-color" style="background: #eceff4;">
 	                    <th width="35%">Product Name</th>
@@ -162,8 +163,8 @@
 					@endphp
 	                @foreach ($order->orderDetails->where('seller_id', $user_id) as $key => $orderDetail)
 		                @if ($orderDetail->product)
-							<tr class="">
-								<td>{{ $orderDetail->product->name }} ({{ $orderDetail->variation }})</td>
+							<tr class="" style="font-family: 'SiyamRupali', serif">
+								<td style="font-family: 'SiyamRupali', serif">{{ $orderDetail->product->name }} ({{ $orderDetail->variation }})</td>
 								<td>
 									@if ($orderDetail->shipping_type != null && $orderDetail->shipping_type == 'home_delivery')
 										{{ __('Home Delivery') }}
@@ -174,9 +175,9 @@
 									@endif
 								</td>
 								<td class="gry-color">{{ $orderDetail->quantity }}</td>
-								<td class="gry-color currency">{{ single_price($orderDetail->price/$orderDetail->quantity) }}</td>
-								<td class="gry-color currency">{{ single_price($orderDetail->tax/$orderDetail->quantity) }}</td>
-			                    <td class="text-right currency">{{ single_price($orderDetail->price+$orderDetail->tax) }}</td>
+								<td class="gry-color currency" style="font-family: 'SiyamRupali', serif">{{ single_price($orderDetail->price/$orderDetail->quantity) }}</td>
+								<td class="gry-color currency" style="font-family: 'SiyamRupali', serif">{{ single_price($orderDetail->tax/$orderDetail->quantity) }}</td>
+			                    <td class="text-right currency" style="font-family: 'SiyamRupali', serif">{{ single_price($orderDetail->price+$orderDetail->tax) }}</td>
 							</tr>
 		                @endif
 					@endforeach
@@ -189,19 +190,19 @@
 		        <tbody>
 			        <tr>
 			            <th class="gry-color text-left">Sub Total</th>
-			            <td class="currency">{{ single_price($order->orderDetails->where('seller_id', $user_id)->sum('price')) }}</td>
+			            <td class="currency" style="font-family: 'SiyamRupali', serif">{{ single_price($order->orderDetails->where('seller_id', $user_id)->sum('price')) }}</td>
 			        </tr>
 			        <tr>
 			            <th class="gry-color text-left">Shipping Cost</th>
-			            <td class="currency">{{ single_price($order->orderDetails->where('seller_id', $user_id)->sum('shipping_cost')) }}</td>
+			            <td class="currency" style="font-family: 'SiyamRupali', serif">{{ single_price($order->orderDetails->where('seller_id', $user_id)->sum('shipping_cost')) }}</td>
 			        </tr>
 			        <tr class="border-bottom">
 			            <th class="gry-color text-left">Total Tax</th>
-			            <td class="currency">{{ single_price($order->orderDetails->where('seller_id', $user_id)->sum('tax')) }}</td>
+			            <td class="currency" style="font-family: 'SiyamRupali', serif">{{ single_price($order->orderDetails->where('seller_id', $user_id)->sum('tax')) }}</td>
 			        </tr>
 			        <tr>
 			            <th class="text-left strong">Grand Total</th>
-			            <td class="currency">{{ single_price($order->orderDetails->where('seller_id', $user_id)->sum('price') + $order->orderDetails->where('seller_id', $user_id)->sum('shipping_cost') + $order->orderDetails->where('seller_id', $user_id)->sum('tax')) }}</td>
+			            <td class="currency" style="font-family: 'SiyamRupali', serif">{{ single_price($order->orderDetails->where('seller_id', $user_id)->sum('price') + $order->orderDetails->where('seller_id', $user_id)->sum('shipping_cost') + $order->orderDetails->where('seller_id', $user_id)->sum('tax')) }}</td>
 			        </tr>
 		        </tbody>
 		    </table>

@@ -11,11 +11,12 @@
             font-weight: normal;
             font-style: normal;
         }
+
         *{
             margin: 0;
             padding: 0;
             line-height: 1.3;
-            font-family: 'Roboto';
+            font-family: 'SiyamRupali', serif;
             color: #333542;
         }
 		body{
@@ -53,9 +54,7 @@
 		.small{
 			font-size: .85rem;
 		}
-		.currency{
 
-		}
 	</style>
 </head>
 <body>

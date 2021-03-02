@@ -33,6 +33,10 @@ Route::get('demo', function () {
     }
 });
 
+Route::get('demo', function () {
+
+});
+
 
 
 Auth::routes(['verify' => true]);

@@ -361,8 +361,8 @@ class OrderController extends Controller
             //sends email to customer with the invoice pdf attached
             if(env('MAIL_USERNAME') != null){
                 try {
-                    Mail::to($request->session()->get('shipping_info')['email'])->queue(new InvoiceEmailManager($array));
-                    Mail::to(User::where('user_type', 'admin')->first()->email)->queue(new InvoiceEmailManager($array));
+                    Mail::to($request->session()->get('shipping_info')['email'])->send(new InvoiceEmailManager($array));
+                    Mail::to(User::where('user_type', 'admin')->first()->email)->send(new InvoiceEmailManager($array));
                 } catch (\Exception $e) {
                     dd($e->getMessage());
                 }

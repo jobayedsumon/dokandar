@@ -129,6 +129,8 @@
                     </div>
                 </div>
         </div>
+    </div>
+
     </section>
     @endif
 
@@ -220,6 +222,21 @@
                             </diV>
                         @endforeach
                     </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="all-category ">
+                    <span class="cat_main" ><a href="{{route('sellers_show')}}" class="text-white">{{__('All Shop')}}</a></span>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="all-category ">
+                    <span class="cat_main" ><a href="#" class="text-white" >{{__('Gift Card')}}</a></span>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="all-category">
+                    <span class="cat_main" ><a href="" class="text-white">{{__('Campaigns')}}</a></span>
                 </div>
             </div>
         </div>

@@ -16,7 +16,8 @@ class InvoiceController extends Controller
         $pdf = PDF::setOptions([
                         'isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true,
                         'logOutputFile' => storage_path('logs/log.htm'),
-                        'tempDir' => storage_path('logs/')
+                        'tempDir' => storage_path('logs/'),
+
                     ])->loadView('invoices.customer_invoice', compact('order'));
         return $pdf->download('order-'.$order->code.'.pdf');
     }
@@ -25,10 +26,14 @@ class InvoiceController extends Controller
     public function seller_invoice_download($id)
     {
         $order = Order::findOrFail($id);
+
+//        return view('invoices.admin_invoice', compact('order'));
+
         $pdf = PDF::setOptions([
                         'isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true,
                         'logOutputFile' => storage_path('logs/log.htm'),
-                        'tempDir' => storage_path('logs/')
+                        'tempDir' => storage_path('logs/'),
+                        'defaultFont' => 'SiyamRupali'
                     ])->loadView('invoices.seller_invoice', compact('order'));
         return $pdf->download('order-'.$order->code.'.pdf');
     }
@@ -37,6 +42,9 @@ class InvoiceController extends Controller
     public function admin_invoice_download($id)
     {
         $order = Order::findOrFail($id);
+
+
+
         $pdf = PDF::setOptions([
                         'isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true,
                         'logOutputFile' => storage_path('logs/log.htm'),
