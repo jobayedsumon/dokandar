@@ -5,17 +5,17 @@
     <meta http-equiv="Content-Type" content="text/html;"/>
     <meta charset="UTF-8">
 	<style media="all">
-		{{--@font-face {--}}
-        {{--    font-family: 'Roboto';--}}
-        {{--    src: url("{{ asset('fonts/Roboto-Regular.ttf') }}") format("truetype");--}}
-        {{--    font-weight: normal;--}}
-        {{--    font-style: normal;--}}
-        {{--}--}}
+        @font-face {
+            font-family: 'Kalpurush';
+            font-style: normal;
+            font-weight: normal;
+            src: url({{ public_path('fonts/kalpurush.ttf') }}) format('truetype');
+        }
         *{
             margin: 0;
             padding: 0;
             line-height: 1.3;
-            font-family: 'Dejavu Sans', serif;
+            font-family: 'Kalpurush', serif;
             color: #333542;
         }
 		body{

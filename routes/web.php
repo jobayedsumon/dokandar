@@ -11,26 +11,28 @@
 |
 */
 
+
+
 ini_set('max_execution_time', 300); // 5 minutes
 
 //demo
 Route::get('/demo/cron_1', 'DemoController@cron_1');
 Route::get('/demo/cron_2', 'DemoController@cron_2');
 
-Route::get('demo', function () {
+Route::get('pdf-demo', function () {
 
-    $from = "support@dokandar.xyz";
 
-    $to = "jobayedahmedsumon@gmail.com";
-    $subject = "Checking PHP mail";
-    $message = "PHP mail works just fine";
-    $headers = "From:" . $from;
 
-    if(mail($to,$subject,$message, $headers)) {
-        echo "The email message was sent.";
-    } else {
-        echo "The email message was not sent.";
-    }
+    return PDF::setOptions([
+        'isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true,
+        'logOutputFile' => storage_path('logs/log.htm'),
+        'tempDir' => storage_path('logs/')
+    ])->loadView('invoices.demo')->download('demo.pdf');
+//    $output = $pdf->output();
+//
+//    $file = 'invoices'.DIRECTORY_SEPARATOR.'demo'.'.pdf';
+//
+//    file_put_contents(public_path($file), $output);
 });
 
 Route::get('demo', function () {
