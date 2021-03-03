@@ -11,13 +11,30 @@
 |
 */
 
+//require 'vendor/autoload.php';
+use Twilio\Rest\Client;
 
+$account_sid = env('TWILIO_SID');
+$auth_token = env('TWILIO_AUTH_TOKEN');
+$twilio_number = env('VALID_TWILLO_NUMBER');
 
 ini_set('max_execution_time', 300); // 5 minutes
 
 //demo
 Route::get('/demo/cron_1', 'DemoController@cron_1');
 Route::get('/demo/cron_2', 'DemoController@cron_2');
+
+Route::get('sms-demo', function () use ($twilio_number, $auth_token, $account_sid) {
+    $client = new Client($account_sid, $auth_token);
+    $client->messages->create(
+    // Where to send a text message (your cell phone?)
+        '+8801677242853',
+        array(
+            'from' => $twilio_number,
+            'body' => 'I sent this message in under 10 minutes!'
+        )
+    );
+});
 
 Route::get('pdf-demo', function () {
 

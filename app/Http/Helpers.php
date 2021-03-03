@@ -7,6 +7,7 @@ use App\SubSubCategory;
 use App\FlashDealProduct;
 use App\FlashDeal;
 use App\OtpConfiguration;
+use Nexmo\Laravel\Facade\Nexmo;
 use Twilio\Rest\Client;
 
 
@@ -14,24 +15,32 @@ use Twilio\Rest\Client;
 if (! function_exists('sendSMS')) {
     function sendSMS($to, $from, $text)
     {
+
         if (OtpConfiguration::where('type', 'nexmo')->first()->value == 1) {
             try {
-                Nexmo::message()->send([
-                    'to'   => $to,
+
+                $basic  = new \Nexmo\Client\Credentials\Basic('1dc961f5', 'o7AkHyJwnbowqRyU');
+                $client = new \Nexmo\Client($basic);
+
+                $message = $client->message()->send([
+                    'to' => $to,
                     'from' => $from,
                     'text' => $text
                 ]);
-            } catch (\Exception $e) {
 
+            } catch (\Exception $e) {
+                dd($e->getMessage());
             }
 
         }
+
         elseif (OtpConfiguration::where('type', 'twillo')->first()->value == 1) {
             $sid = env("TWILIO_SID"); // Your Account SID from www.twilio.com/console
             $token = env("TWILIO_AUTH_TOKEN"); // Your Auth Token from www.twilio.com/console
 
-            $client = new Client($sid, $token);
+
             try {
+                $client = new Client($sid, $token);
                 $message = $client->messages->create(
                   $to, // Text this number
                   array(
@@ -40,7 +49,7 @@ if (! function_exists('sendSMS')) {
                   )
                 );
             } catch (\Exception $e) {
-
+                dd($e->getMessage());
             }
 
         }

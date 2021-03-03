@@ -71,6 +71,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+
         if (filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
             $user = User::create([
                 'name' => $data['name'],
@@ -93,10 +94,11 @@ class RegisterController extends Controller
             }
         }
         else {
+
             if (\App\Addon::where('unique_identifier', 'otp_system')->first() != null && \App\Addon::where('unique_identifier', 'otp_system')->first()->activated){
                 $user = User::create([
                     'name' => $data['name'],
-                    'phone' => '+'.$data['country_code'].$data['phone'],
+                    'phone' => '+'. $data['country_code'].$data['phone'],
                     'password' => Hash::make($data['password']),
                     'verification_code' => rand(100000, 999999)
                 ]);
@@ -104,7 +106,7 @@ class RegisterController extends Controller
                 $customer = new Customer;
                 $customer->user_id = $user->id;
                 $customer->save();
-                
+
                 if (\App\Addon::where('unique_identifier', 'otp_system')->first() != null && \App\Addon::where('unique_identifier', 'otp_system')->first()->activated){
                     $otpController = new OTPVerificationController;
                     $otpController->send_code($user);
