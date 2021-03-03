@@ -364,7 +364,7 @@ class OrderController extends Controller
                     Mail::to($request->session()->get('shipping_info')['email'])->send(new InvoiceEmailManager($array));
                     Mail::to(User::where('user_type', 'admin')->first()->email)->send(new InvoiceEmailManager($array));
                 } catch (\Exception $e) {
-                    dd($e->getMessage());
+
                 }
             }
              unlink(public_path($array['file']));
