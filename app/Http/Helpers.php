@@ -15,10 +15,9 @@ use Twilio\Rest\Client;
 if (! function_exists('sendSMS')) {
     function sendSMS($to, $from, $text)
     {
+
         if (OtpConfiguration::where('type', 'nexmo')->first()->value == 1) {
             try {
-
-                dd($to);
 
                 $basic  = new \Nexmo\Client\Credentials\Basic('1dc961f5', 'o7AkHyJwnbowqRyU');
                 $client = new \Nexmo\Client($basic);
