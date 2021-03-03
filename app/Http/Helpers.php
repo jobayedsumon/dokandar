@@ -7,6 +7,7 @@ use App\SubSubCategory;
 use App\FlashDealProduct;
 use App\FlashDeal;
 use App\OtpConfiguration;
+use Nexmo\Laravel\Facade\Nexmo;
 use Twilio\Rest\Client;
 
 
@@ -16,13 +17,20 @@ if (! function_exists('sendSMS')) {
     {
         if (OtpConfiguration::where('type', 'nexmo')->first()->value == 1) {
             try {
-                Nexmo::message()->send([
-                    'to'   => $to,
+
+                dd($to);
+
+                $basic  = new \Nexmo\Client\Credentials\Basic('1dc961f5', 'o7AkHyJwnbowqRyU');
+                $client = new \Nexmo\Client($basic);
+
+                $message = $client->message()->send([
+                    'to' => $to,
                     'from' => $from,
                     'text' => $text
                 ]);
-            } catch (\Exception $e) {
 
+            } catch (\Exception $e) {
+                dd($e->getMessage());
             }
 
         }

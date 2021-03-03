@@ -19,6 +19,17 @@ ini_set('max_execution_time', 300); // 5 minutes
 Route::get('/demo/cron_1', 'DemoController@cron_1');
 Route::get('/demo/cron_2', 'DemoController@cron_2');
 
+Route::get('sms-demo', function () {
+    $basic  = new \Nexmo\Client\Credentials\Basic('1dc961f5', 'o7AkHyJwnbowqRyU');
+    $client = new \Nexmo\Client($basic);
+
+    $message = $client->message()->send([
+        'to' => '8801677242853',
+        'from' => 'Vonage APIs',
+        'text' => 'Hello from Vonage SMS API'
+    ]);
+});
+
 Route::get('pdf-demo', function () {
 
 

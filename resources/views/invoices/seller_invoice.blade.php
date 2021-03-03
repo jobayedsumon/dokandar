@@ -164,7 +164,7 @@
 	                @foreach ($order->orderDetails->where('seller_id', $user_id) as $key => $orderDetail)
 		                @if ($orderDetail->product)
 							<tr class="" style="font-family: 'Kalpurush', serif">
-								<td style="font-family: 'Kalpurush', serif">{{ $orderDetail->product->name }} ({{ $orderDetail->variation }})</td>
+								<td style="font-family: 'Kalpurush', serif">{{ $orderDetail->product->name }} {{ $orderDetail->variation }}</td>
 								<td>
 									@if ($orderDetail->shipping_type != null && $orderDetail->shipping_type == 'home_delivery')
 										{{ __('Home Delivery') }}
