@@ -49,7 +49,7 @@ if (! function_exists('sendSMS')) {
                   )
                 );
             } catch (\Exception $e) {
-                dd($e->getMessage());
+
             }
 
         }
