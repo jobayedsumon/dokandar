@@ -98,7 +98,7 @@ class RegisterController extends Controller
             if (\App\Addon::where('unique_identifier', 'otp_system')->first() != null && \App\Addon::where('unique_identifier', 'otp_system')->first()->activated){
                 $user = User::create([
                     'name' => $data['name'],
-                    'phone' => $data['country_code'].$data['phone'],
+                    'phone' => '+'. $data['country_code'].$data['phone'],
                     'password' => Hash::make($data['password']),
                     'verification_code' => rand(100000, 999999)
                 ]);

@@ -33,12 +33,14 @@ if (! function_exists('sendSMS')) {
             }
 
         }
+
         elseif (OtpConfiguration::where('type', 'twillo')->first()->value == 1) {
             $sid = env("TWILIO_SID"); // Your Account SID from www.twilio.com/console
             $token = env("TWILIO_AUTH_TOKEN"); // Your Auth Token from www.twilio.com/console
 
-            $client = new Client($sid, $token);
+
             try {
+                $client = new Client($sid, $token);
                 $message = $client->messages->create(
                   $to, // Text this number
                   array(
@@ -47,7 +49,7 @@ if (! function_exists('sendSMS')) {
                   )
                 );
             } catch (\Exception $e) {
-
+                dd($e->getMessage());
             }
 
         }
