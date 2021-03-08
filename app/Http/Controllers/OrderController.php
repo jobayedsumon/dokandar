@@ -244,6 +244,8 @@ class OrderController extends Controller
             }
             //End Shipping Cost Calculation
 
+
+
             //Order Details Storing
             foreach (Session::get('cart') as $key => $cartItem){
                 $product = Product::find($cartItem['id']);
@@ -277,6 +279,7 @@ class OrderController extends Controller
                 if ($cartItem['shipping_type'] == 'home_delivery') {
                     if (\App\BusinessSetting::where('type', 'shipping_type')->first()->value == 'flat_rate') {
                         $order_detail->shipping_cost = $shipping/count(Session::get('cart'));
+                        dump($shipping/count(Session::get('cart')));
                     }
                     elseif (\App\BusinessSetting::where('type', 'shipping_type')->first()->value == 'seller_wise_shipping') {
                         if($product->added_by == 'admin'){

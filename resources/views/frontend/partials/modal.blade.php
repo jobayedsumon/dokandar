@@ -3,6 +3,7 @@
     {
         jQuery('#confirm-delete').modal('show', {backdrop: 'static'});
         document.getElementById('delete_link').setAttribute('href' , delete_url);
+
     }
 </script>
 

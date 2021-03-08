@@ -69,9 +69,9 @@
 				<tr>
 					<td>
 						@if($generalsetting->logo != null)
-							<img loading="lazy"  src="{{ asset($generalsetting->logo) }}" height="40" style="display:inline-block;">
+							<img loading="lazy"  src="{{ public_path($generalsetting->logo) }}" height="40" style="display:inline-block;">
 						@else
-							<img loading="lazy"  src="{{ asset('frontend/images/logo/logo.png') }}" height="40" style="display:inline-block;">
+							<img loading="lazy"  src="{{ public_path('frontend/images/logo/logo.png') }}" height="40" style="display:inline-block;">
 						@endif
 					</td>
 					<td style="font-size: 2.5rem;" class="text-right strong">INVOICE</td>
@@ -164,10 +164,14 @@
 			            <th class="gry-color text-left">Total Tax</th>
 			            <td class="currency">{{ single_price($order->orderDetails->sum('tax')) }}</td>
 			        </tr>
-			        <tr>
-			            <th class="text-left strong">Grand Total</th>
-			            <td class="currency">{{ single_price($order->grand_total) }}</td>
-			        </tr>
+                    <tr class="border-bottom">
+                        <th class="gry-color text-left">Coupon Discount</th>
+                        <td class="currency" style="font-family: 'Kalpurush', serif">{{ single_price($order->coupon_discount) }}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-left strong">Grand Total</th>
+                        <td class="currency" style="font-family: 'Kalpurush', serif">{{ single_price($order->grand_total) }}</td>
+                    </tr>
 		        </tbody>
 		    </table>
 	    </div>
