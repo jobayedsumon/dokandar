@@ -225,7 +225,8 @@
                                 <label>{{__('Phone')}}</label>
                             </div>
                             <div class="col-md-10">
-                                <input type="text" class="form-control mb-3" placeholder="{{__('+880')}}" name="phone" value="" required>
+                                <input type="text" class="form-control mb-3" placeholder="{{__('016********')}}" name="phone" value="" required>
+                                <span class="text-sm">*Country code is not needed.</span>
                             </div>
                         </div>
                     </div>

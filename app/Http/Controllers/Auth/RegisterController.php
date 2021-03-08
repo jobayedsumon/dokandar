@@ -98,9 +98,9 @@ class RegisterController extends Controller
             if (\App\Addon::where('unique_identifier', 'otp_system')->first() != null && \App\Addon::where('unique_identifier', 'otp_system')->first()->activated){
                 $user = User::create([
                     'name' => $data['name'],
-                    'phone' => '+'. $data['country_code'].$data['phone'],
+                    'phone' => '0'.$data['phone'],
                     'password' => Hash::make($data['password']),
-                    'verification_code' => rand(100000, 999999)
+                    'verification_code' => rand(1000, 9999)
                 ]);
 
                 $customer = new Customer;
@@ -134,7 +134,7 @@ class RegisterController extends Controller
                 return back();
             }
         }
-        elseif (User::where('phone', '+'.$request->country_code.$request->phone)->first() != null) {
+        elseif (User::where('phone', $request->phone)->first() != null) {
             flash('Phone already exists.');
             return back();
         }
