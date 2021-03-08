@@ -169,6 +169,7 @@ class ConversationController extends Controller
      */
     public function destroy($id)
     {
+
         $conversation = Conversation::findOrFail(decrypt($id));
         foreach ($conversation->messages as $key => $message) {
             $message->delete();

@@ -58,10 +58,10 @@ class OTPVerificationController extends Controller
 
     public function resend_verificcation_code(Request $request){
         $user = Auth::user();
-        $user->verification_code = rand(100000,999999);
+        $user->verification_code = rand(1000,9999);
         $user->save();
 
-        sendSMS($user->phone, env("APP_NAME"), $user->verification_code.' is your verification code for '.env('APP_NAME'));
+        sendSMS($user->phone, env('APP_NAME'), 'Your '.env('APP_NAME').'  verification code is: '.$user->verification_code);
 
         return back();
     }
@@ -104,7 +104,7 @@ class OTPVerificationController extends Controller
      */
 
     public function send_code($user){
-        sendSMS($user->phone, env('APP_NAME'), $user->verification_code.' is your verification code for '.env('APP_NAME'));
+        sendSMS($user->phone, env('APP_NAME'), 'Your '.env('APP_NAME').'  verification code is: '.$user->verification_code);
     }
 
     /**
@@ -113,7 +113,10 @@ class OTPVerificationController extends Controller
      */
     public function send_order_code($order){
         if(json_decode($order->shipping_address)->phone != null){
-            sendSMS(json_decode($order->shipping_address)->phone, env('APP_NAME'), 'You order has been placed and Order Code is : '.$order->code);
+
+            $msg = "Hi,\nWe have received your order ".$order->code." and will be delivered within 45 minutes from now.\nHotline: 01687388839\nThanks for ordering from Dokandar.xyz";
+
+            sendSMS(json_decode($order->shipping_address)->phone, env('APP_NAME'), $msg);
         }
     }
 

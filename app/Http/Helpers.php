@@ -77,45 +77,20 @@ if (! function_exists('sendSMS')) {
         }
         elseif (OtpConfiguration::where('type', 'fast2sms')->first()->value == 1) {
 
-            if(strpos($to, '+91') !== false){
-                $to = substr($to, 3);
-            }
 
-            $fields = array(
-                "sender_id" => env("SENDER_ID"),
-                "message" => $text,
-                "language" => env("LANGUAGE"),
-                "route" => env("ROUTE"),
-                "numbers" => $to,
-            );
+            $username = "kap.ashraful";
+            $hash = "46f96dd0ec093837a0c056993d088e26"; 
+    
+            $params = array('app'=>'ws', 'u'=>$username, 'h'=>$hash, 'op'=>'pv', 'unicode'=>'1','to'=>$to, 'msg'=>$text);
 
-            $auth_key = env('AUTH_KEY');
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, "http://alphasms.biz/index.php?".http_build_query($params, "", "&"));
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type:application/json", "Accept:application/json"));
+            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
 
-            $curl = curl_init();
-
-            curl_setopt_array($curl, array(
-              CURLOPT_URL => "https://www.fast2sms.com/dev/bulk",
-              CURLOPT_RETURNTRANSFER => true,
-              CURLOPT_ENCODING => "",
-              CURLOPT_MAXREDIRS => 10,
-              CURLOPT_TIMEOUT => 30,
-              CURLOPT_SSL_VERIFYHOST => 0,
-              CURLOPT_SSL_VERIFYPEER => 0,
-              CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-              CURLOPT_CUSTOMREQUEST => "POST",
-              CURLOPT_POSTFIELDS => json_encode($fields),
-              CURLOPT_HTTPHEADER => array(
-                "authorization: $auth_key",
-                "accept: */*",
-                "cache-control: no-cache",
-                "content-type: application/json"
-              ),
-            ));
-
-            $response = curl_exec($curl);
-            $err = curl_error($curl);
-
-            curl_close($curl);
+            $response = curl_exec($ch);
+            curl_close ($ch);
 
             return $response;
         }
