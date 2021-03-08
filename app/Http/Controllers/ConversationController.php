@@ -87,15 +87,16 @@ class ConversationController extends Controller
      */
     public function show($id)
     {
-        $conversation = Conversation::findOrFail(decrypt($id));
-        if ($conversation->sender_id == Auth::user()->id) {
-            $conversation->sender_viewed = 1;
-        }
-        elseif($conversation->receiver_id == Auth::user()->id) {
-            $conversation->receiver_viewed = 1;
-        }
-        $conversation->save();
-        return view('frontend.conversations.show', compact('conversation'));
+//        $this->destroy($id);
+//        $conversation = Conversation::findOrFail(decrypt($id));
+//        if ($conversation->sender_id == Auth::user()->id) {
+//            $conversation->sender_viewed = 1;
+//        }
+//        elseif($conversation->receiver_id == Auth::user()->id) {
+//            $conversation->receiver_viewed = 1;
+//        }
+//        $conversation->save();
+//        return view('frontend.conversations.show', compact('conversation'));
     }
 
 

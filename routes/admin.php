@@ -176,7 +176,7 @@ Route::group(['prefix' =>'admin', 'middleware' => ['auth', 'admin']], function()
 	//conversation of seller customer
 	Route::get('conversations','ConversationController@admin_index')->name('conversations.admin_index');
 	Route::get('conversations/{id}/show','ConversationController@admin_show')->name('conversations.admin_show');
-	Route::get('/conversations/destroy/{id}', 'ConversationController@destroy')->name('conversations.destroy');
+	Route::get('/conversations/destroy/{id}', 'ConversationController@destroy')->name('delete_conversations');
 
 
     Route::post('/sellers/profile_modal', 'SellerController@profile_modal')->name('sellers.profile_modal');
