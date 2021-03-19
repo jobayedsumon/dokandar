@@ -287,11 +287,11 @@ class ProductController extends Controller
         }
         //combinations end
 
-        foreach (Language::all() as $key => $language) {
-            $data = openJSONFile($language->code);
-            $data[$product->name] = $product->name;
-            saveJSONFile($language->code, $data);
-        }
+        // foreach (Language::all() as $key => $language) {
+        //     $data = openJSONFile($language->code);
+        //     $data[$product->name] = $product->name;
+        //     saveJSONFile($language->code, $data);
+        // }
 
 	    $product->save();
 
@@ -493,12 +493,12 @@ class ProductController extends Controller
 
         $product->choice_options = json_encode($choice_options);
 
-        foreach (Language::all() as $key => $language) {
-            $data = openJSONFile($language->code);
-            unset($data[$product->name]);
-            $data[$request->name] = "";
-            saveJSONFile($language->code, $data);
-        }
+        // foreach (Language::all() as $key => $language) {
+        //     $data = openJSONFile($language->code);
+        //     unset($data[$product->name]);
+        //     $data[$request->name] = "";
+        //     saveJSONFile($language->code, $data);
+        // }
 
         //combinations start
         $options = array();
@@ -571,13 +571,13 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
         if(Product::destroy($id)){
-            foreach (Language::all() as $key => $language) {
-                $data = openJSONFile($language->code);
-                unset($data[$product->name]);
-                saveJSONFile($language->code, $data);
-            }
+            // foreach (Language::all() as $key => $language) {
+            //     $data = openJSONFile($language->code);
+            //     unset($data[$product->name]);
+            //     saveJSONFile($language->code, $data);
+            // }
             flash(__('Product has been deleted successfully'))->success();
-            if(Auth::user()->user_type == 'admin'){
+            if(Auth::user()->user_type == 'admin' || Auth::user()->user_type == 'staff'){
                 return redirect()->route('products.admin');
             }
             else{
