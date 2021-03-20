@@ -59,9 +59,9 @@ class CategoryController extends Controller
             $category->commision_rate = $request->commision_rate;
         }
 
-        $data = openJSONFile('en');
-        $data[$category->name] = $category->name;
-        saveJSONFile('en', $data);
+        // $data = openJSONFile('en');
+        // $data[$category->name] = $category->name;
+        // saveJSONFile('en', $data);
 
         if($request->hasFile('banner')){
             $category->banner = $request->file('banner')->store('uploads/categories/banner');
@@ -115,12 +115,12 @@ class CategoryController extends Controller
     {
         $category = Category::findOrFail($id);
 
-        foreach (Language::all() as $key => $language) {
-            $data = openJSONFile($language->code);
-            unset($data[$category->name]);
-            $data[$request->name] = "";
-            saveJSONFile($language->code, $data);
-        }
+        // foreach (Language::all() as $key => $language) {
+        //     $data = openJSONFile($language->code);
+        //     unset($data[$category->name]);
+        //     $data[$request->name] = "";
+        //     saveJSONFile($language->code, $data);
+        // }
 
         $category->name = $request->name;
         $category->meta_title = $request->meta_title;
@@ -173,11 +173,11 @@ class CategoryController extends Controller
         HomeCategory::where('category_id', $category->id)->delete();
 
         if(Category::destroy($id)){
-            foreach (Language::all() as $key => $language) {
-                $data = openJSONFile($language->code);
-                unset($data[$category->name]);
-                saveJSONFile($language->code, $data);
-            }
+            // foreach (Language::all() as $key => $language) {
+            //     $data = openJSONFile($language->code);
+            //     unset($data[$category->name]);
+            //     saveJSONFile($language->code, $data);
+            // }
 
             if($category->banner != null){
                 //($category->banner);

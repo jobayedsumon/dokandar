@@ -8,8 +8,9 @@ use App\Category;
 use App\SubCategory;
 use App\Brand;
 use App\SubSubCategory;
-use Auth;
-use ImageOptimizer;
+use Illuminate\Support\Facades\Auth;
+use Spatie\LaravelImageOptimizer\Facades\ImageOptimizer;
+
 
 class CustomerProductController extends Controller
 {
@@ -75,14 +76,14 @@ class CustomerProductController extends Controller
             foreach ($request->photos as $key => $photo) {
                 $path = $photo->store('uploads/customer_products/photos');
                 array_push($photos, $path);
-                // ImageOptimizer::optimize(base_path('public/').$path);
+                 ImageOptimizer::optimize(base_path('public/').$path);
             }
             $customer_product->photos = json_encode($photos);
         }
 
         if($request->hasFile('thumbnail_img')){
             $customer_product->thumbnail_img = $request->thumbnail_img->store('uploads/customer_products/thumbnail');
-            // ImageOptimizer::optimize(base_path('public/').$customer_product->thumbnail_img);
+             ImageOptimizer::optimize(base_path('public/').$customer_product->thumbnail_img);
         }
 
         $customer_product->unit = $request->unit;
@@ -95,7 +96,7 @@ class CustomerProductController extends Controller
         $customer_product->meta_description = $request->meta_description;
         if($request->hasFile('meta_img')){
             $customer_product->meta_img = $request->meta_img->store('uploads/customer_products/meta');
-            // ImageOptimizer::optimize(base_path('public/').$customer_product->meta_img);
+             ImageOptimizer::optimize(base_path('public/').$customer_product->meta_img);
         }
         $customer_product->slug = strtolower(preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', $request->name)).'-'.str_random(5));
         if($customer_product->save()){
@@ -174,7 +175,7 @@ class CustomerProductController extends Controller
         $customer_product->thumbnail_img = $request->previous_thumbnail_img;
         if($request->hasFile('thumbnail_img')){
             $customer_product->thumbnail_img = $request->thumbnail_img->store('uploads/customer_products/thumbnail');
-            // ImageOptimizer::optimize(base_path('public/').$customer_product->thumbnail_img);
+             ImageOptimizer::optimize(base_path('public/').$customer_product->thumbnail_img);
         }
 
         $customer_product->unit = $request->unit;
@@ -187,7 +188,7 @@ class CustomerProductController extends Controller
         $customer_product->meta_description = $request->meta_description;
         if($request->hasFile('meta_img')){
             $customer_product->meta_img = $request->meta_img->store('uploads/customer_products/meta');
-            // ImageOptimizer::optimize(base_path('public/').$customer_product->meta_img);
+             ImageOptimizer::optimize(base_path('public/').$customer_product->meta_img);
         }
         $customer_product->slug = strtolower(preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', $request->name)).'-'.str_random(5));
         if($customer_product->save()){
@@ -200,17 +201,34 @@ class CustomerProductController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
         $product = CustomerProduct::findOrFail($id);
         if (CustomerProduct::destroy($id)) {
-            if(Auth::user()->user_type == "customer" || Auth::user()->user_type == "seller"){
+
+            if($product->photos){
+                $productPhotos = json_decode($product->photos);
+                foreach ($productPhotos as $key => $photo) {
+                    if (file_exists(base_path('public/').$photo)) {
+                        unlink(base_path('public/').$photo);
+                    }
+                }
+            }
+
+            if(file_exists(base_path('public/').$product->thumbnail_img)){
+                unlink(base_path('public/').$product->thumbnail_img);
+            }
+
+            if(file_exists(base_path('public/').$product->featured_img)){
+                unlink(base_path('public/').$product->featured_img);
+            }
+
+            if(file_exists(base_path('public/').$product->flash_deal_img)){
+                unlink(base_path('public/').$product->flash_deal_img);
+            }
+
+            if(Auth::user()->user_type === "customer" || Auth::user()->user_type === "seller"){
                 flash(__('Product has been deleted successfully'))->success();
                 return redirect()->route('customer_products.index');
             }

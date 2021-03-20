@@ -241,11 +241,11 @@
             </div>
         </div>
     </section>
-    <!---
+
     <div id="section_best_sellers">
 
     </div>
-    ---->
+
     <div id="section_featured">
 
     </div>

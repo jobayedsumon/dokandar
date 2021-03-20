@@ -7,12 +7,12 @@ use App\Product;
 use App\ProductStock;
 use App\Category;
 use App\Language;
-use Auth;
 use App\SubSubCategory;
+use Illuminate\Support\Facades\Auth;
 use Session;
-use ImageOptimizer;
 use DB;
 use CoreComponentRepository;
+use Spatie\LaravelImageOptimizer\Facades\ImageOptimizer;
 
 class ProductController extends Controller
 {
@@ -104,6 +104,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+
         $refund_request_addon = \App\Addon::where('unique_identifier', 'refund_request')->first();
 
         $product = new Product;
@@ -143,24 +144,24 @@ class ProductController extends Controller
             foreach ($request->photos as $key => $photo) {
                 $path = $photo->store('uploads/products/photos');
                 array_push($photos, $path);
-                //ImageOptimizer::optimize(base_path('public/').$path);
+                ImageOptimizer::optimize(base_path('public/').$path);
             }
             $product->photos = json_encode($photos);
         }
 
         if($request->hasFile('thumbnail_img')){
             $product->thumbnail_img = $request->thumbnail_img->store('uploads/products/thumbnail');
-            //ImageOptimizer::optimize(base_path('public/').$product->thumbnail_img);
+            ImageOptimizer::optimize(base_path('public/').$product->thumbnail_img);
         }
 
         if($request->hasFile('featured_img')){
             $product->featured_img = $request->featured_img->store('uploads/products/featured');
-            //ImageOptimizer::optimize(base_path('public/').$product->featured_img);
+            ImageOptimizer::optimize(base_path('public/').$product->featured_img);
         }
 
         if($request->hasFile('flash_deal_img')){
             $product->flash_deal_img = $request->flash_deal_img->store('uploads/products/flash_deal');
-            //ImageOptimizer::optimize(base_path('public/').$product->flash_deal_img);
+            ImageOptimizer::optimize(base_path('public/').$product->flash_deal_img);
         }
 
         $product->unit = $request->unit;
@@ -188,7 +189,7 @@ class ProductController extends Controller
 
         if($request->hasFile('meta_img')){
             $product->meta_img = $request->meta_img->store('uploads/products/meta');
-            //ImageOptimizer::optimize(base_path('public/').$product->meta_img);
+            ImageOptimizer::optimize(base_path('public/').$product->meta_img);
         }
 
         if($request->hasFile('pdf')){
@@ -287,11 +288,11 @@ class ProductController extends Controller
         }
         //combinations end
 
-        foreach (Language::all() as $key => $language) {
-            $data = openJSONFile($language->code);
-            $data[$product->name] = $product->name;
-            saveJSONFile($language->code, $data);
-        }
+        // foreach (Language::all() as $key => $language) {
+        //     $data = openJSONFile($language->code);
+        //     $data[$product->name] = $product->name;
+        //     saveJSONFile($language->code, $data);
+        // }
 
 	    $product->save();
 
@@ -357,6 +358,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $refund_request_addon = \App\Addon::where('unique_identifier', 'refund_request')->first();
         $product = Product::findOrFail($id);
         $product->name = $request->name;
@@ -399,7 +401,7 @@ class ProductController extends Controller
             foreach ($request->photos as $key => $photo) {
                 $path = $photo->store('uploads/products/photos');
                 array_push($photos, $path);
-                //ImageOptimizer::optimize(base_path('public/').$path);
+                ImageOptimizer::optimize(base_path('public/').$path);
             }
         }
         $product->photos = json_encode($photos);
@@ -407,19 +409,19 @@ class ProductController extends Controller
         $product->thumbnail_img = $request->previous_thumbnail_img;
         if($request->hasFile('thumbnail_img')){
             $product->thumbnail_img = $request->thumbnail_img->store('uploads/products/thumbnail');
-            //ImageOptimizer::optimize(base_path('public/').$product->thumbnail_img);
+            ImageOptimizer::optimize(base_path('public/').$product->thumbnail_img);
         }
 
         $product->featured_img = $request->previous_featured_img;
         if($request->hasFile('featured_img')){
             $product->featured_img = $request->featured_img->store('uploads/products/featured');
-            //ImageOptimizer::optimize(base_path('public/').$product->featured_img);
+            ImageOptimizer::optimize(base_path('public/').$product->featured_img);
         }
 
         $product->flash_deal_img = $request->previous_flash_deal_img;
         if($request->hasFile('flash_deal_img')){
             $product->flash_deal_img = $request->flash_deal_img->store('uploads/products/flash_deal');
-            //ImageOptimizer::optimize(base_path('public/').$product->flash_deal_img);
+            ImageOptimizer::optimize(base_path('public/').$product->flash_deal_img);
         }
 
         $product->unit = $request->unit;
@@ -448,7 +450,7 @@ class ProductController extends Controller
         $product->meta_img = $request->previous_meta_img;
         if($request->hasFile('meta_img')){
             $product->meta_img = $request->meta_img->store('uploads/products/meta');
-            //ImageOptimizer::optimize(base_path('public/').$product->meta_img);
+            ImageOptimizer::optimize(base_path('public/').$product->meta_img);
         }
 
         if($request->hasFile('pdf')){
@@ -493,12 +495,12 @@ class ProductController extends Controller
 
         $product->choice_options = json_encode($choice_options);
 
-        foreach (Language::all() as $key => $language) {
-            $data = openJSONFile($language->code);
-            unset($data[$product->name]);
-            $data[$request->name] = "";
-            saveJSONFile($language->code, $data);
-        }
+        // foreach (Language::all() as $key => $language) {
+        //     $data = openJSONFile($language->code);
+        //     unset($data[$product->name]);
+        //     $data[$request->name] = "";
+        //     saveJSONFile($language->code, $data);
+        // }
 
         //combinations start
         $options = array();
@@ -561,30 +563,52 @@ class ProductController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
         $product = Product::findOrFail($id);
+
         if(Product::destroy($id)){
-            foreach (Language::all() as $key => $language) {
-                $data = openJSONFile($language->code);
-                unset($data[$product->name]);
-                saveJSONFile($language->code, $data);
+
+            $productPhotos = json_decode($product->photos);
+
+            if(!empty($productPhotos)){
+
+                foreach ($productPhotos as $key => $photo) {
+                    if (file_exists(base_path('public/').$photo)) {
+                        unlink(base_path('public/').$photo);
+                    }
+                }
             }
+
+            if($product->thumbnail_img && file_exists(base_path('public/').$product->thumbnail_img)){
+
+                unlink(base_path('public/').$product->thumbnail_img);
+            }
+
+            if($product->featured_img && file_exists(base_path('public/').$product->featured_img)){
+
+                unlink(base_path('public/').$product->featured_img);
+            }
+
+            if($product->flash_deal_img && file_exists(base_path('public/').$product->flash_deal_img)){
+
+                unlink(base_path('public/').$product->flash_deal_img);
+            }
+
             flash(__('Product has been deleted successfully'))->success();
-            if(Auth::user()->user_type == 'admin'){
-                return redirect()->route('products.admin');
-            }
-            else{
-                return redirect()->route('seller.products');
-            }
+
+                if(Auth::user()->user_type === 'admin' || Auth::user()->user_type === 'staff'){
+                    return redirect()->route('products.admin');
+                }
+                else{
+
+                    return redirect()->route('seller.products');
+                }
+
         }
         else{
+
             flash(__('Something went wrong'))->error();
             return back();
         }

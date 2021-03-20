@@ -2,7 +2,7 @@
 
 @section('content')
     @php
-        $status = $order->orderDetails->first()->delivery_status;
+        $status = $order ? $order->orderDetails->first()->delivery_status : null;
     @endphp
     <div id="page-content">
         <section class="slice-xs sct-color-2 border-bottom">

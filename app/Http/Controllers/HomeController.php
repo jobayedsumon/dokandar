@@ -22,8 +22,8 @@ use App\Color;
 use App\Order;
 use App\BusinessSetting;
 use App\Http\Controllers\SearchController;
-use ImageOptimizer;
 use Cookie;
+use Spatie\LaravelImageOptimizer\Facades\ImageOptimizer;
 
 class HomeController extends Controller
 {
@@ -144,6 +144,7 @@ class HomeController extends Controller
 
         if($request->hasFile('photo')){
             $user->avatar_original = $request->photo->store('uploads/users');
+            ImageOptimizer::optimize(base_path('public/').$user->avatar_original);
         }
 
         if($user->save()){
