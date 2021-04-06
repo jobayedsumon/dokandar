@@ -62,7 +62,7 @@
                                                 }
                                             }
                                         @endphp
-                                        <span class="d-block title heading-3 strong-400">{{ single_price($total) }}</span>
+                                        <span class="d-block title heading-3 strong-400">{{ single_price(Auth::user()->seller->admin_to_pay) }}</span>
                                         <span class="d-block sub-title">{{__('Total earnings')}}</span>
                                     </a>
                                 </div>
