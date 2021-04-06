@@ -125,7 +125,7 @@
                                     <label>{{__('Amount')}} <span class="required-star">*</span></label>
                                 </div>
                                 <div class="col-md-9">
-                                    <input type="number" class="form-control mb-3" name="amount" min="1" max="{{ $total_earnings }}" placeholder="Amount" required>
+                                    <input type="number" class="form-control mb-3" name="amount" min="1" max="{{ Auth::user()->seller->admin_to_pay }}" placeholder="Amount" required>
                                 </div>
                             </div>
                             <div class="row">
