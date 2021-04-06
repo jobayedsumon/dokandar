@@ -64,7 +64,11 @@
                                             $admin_to_pay = Auth::user()->seller->admin_to_pay;
                                             $total_earnings = $total - $admin_to_pay;
                                         @endphp
+<<<<<<< HEAD
                                         <span class="d-block title heading-3 strong-400">{{ single_price($total_earnings) }}</span>
+=======
+                                        <span class="d-block title heading-3 strong-400">{{ single_price(Auth::user()->seller->admin_to_pay) }}</span>
+>>>>>>> 1349a73b1a3e4fdd6929682382d6f7d7320ecad6
                                         <span class="d-block sub-title">{{__('Total earnings')}}</span>
                                     </a>
                                 </div>
